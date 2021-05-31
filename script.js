@@ -8,16 +8,7 @@ let UI = (function () {
   let mainBoard = document.querySelector(".main-board");
   let mainCells = [...document.querySelectorAll(".cell")];
 
-  return {
-    activePlayer,
-    result,
-    player1Input,
-    player2Input,
-    saveButton,
-    resetButton,
-    mainBoard,
-    mainCells,
-  };
+  return { activePlayer, result, player1Input, player2Input, saveButton, resetButton, mainBoard, mainCells };
 })();
 
 let controller = (function () {
@@ -26,67 +17,80 @@ let controller = (function () {
   let activePlayer = player1;
   let gameOver = false;
   let winner = null;
-
-  return { player1, player2, activePlayer, gameOver, winner };
+  let cells = [];
+  for (let cell of UI.mainCells) {
+    cells.push("-");
+  }
+  function display() {
+    for (let i = 0; i < UI.mainCells.length; i++) {
+      UI.mainCells[i].textContent = cells[i];
+      UI.activePlayer.textContent = `Player Active: ${controller.activePlayer}`;
+      if (controller.gameOver) {
+        UI.result.textContent = `${controller.winner} has won the game`;
+      } else {
+        UI.result.textContent = "Result: Waiting";
+      }
+    }
+  }
+  return { player1, player2, activePlayer, gameOver, winner, cells, display };
 })();
 
 let board = (function () {
+  let id = 0;
   for (let cell of UI.mainCells) {
-    cell.addEventListener("click", main);
+    cell.addEventListener("click", move);
+    cell.id = id++;
   }
   UI.resetButton.addEventListener("click", reset);
   UI.saveButton.addEventListener("click", save);
 
-  function main(e) {
+  function move(e) {
     if (e.target.textContent == "-" && !controller.gameOver) {
       if (controller.activePlayer == controller.player1) {
-        e.target.textContent = "*";
+        controller.cells[e.target.id] = "*";
         controller.activePlayer = controller.player2;
       } else {
-        e.target.textContent = "o";
+        controller.cells[e.target.id] = "o";
         controller.activePlayer = controller.player1;
       }
-      UI.activePlayer.textContent = `Player Active: ${controller.activePlayer}`;
     }
     checkWinner();
-    if (controller.gameOver) {
-      UI.result.textContent = `${controller.winner} has won the game`;
-    }
+    controller.display();
   }
   function reset() {
-    for (cell of UI.mainCells) {
-      cell.textContent = "-";
-      controller.activePlayer = controller.player1;
-      controller.gameOver = false;
-      UI.result.textContent="Result: Waiting";
-      UI.activePlayer.textContent = `Player Active: ${controller.activePlayer}`;
+    for (let i = 0; i < controller.cells.length; i++) {
+      controller.cells[i] = "-";
     }
+    controller.activePlayer = controller.player1;
+    controller.gameOver = false;
+    controller.winner = null;
+    controller.display();
   }
   function save() {
-    controller.player1 = UI.player1Input.value || "player1";
-    controller.player2 = UI.player2Input.value || "player2";
+    controller.player1 = UI.player1Input.value || "Player1";
+    controller.player2 = UI.player2Input.value || "Player2";
+    if (controller.activePlayer == "Player1") {
+      controller.activePlayer = controller.player1;
+    } else {
+      controller.activePlayer = controller.player2;
+    }
+    controller.display();
   }
 
   function checkWinner() {
-    let arr = [];
-    for (let cell of UI.mainCells) {
-      arr.push(cell.textContent);
-    }
     if (checkHorizontal("*") || checkVertical("*") || checkDiagoanl("*")) {
       controller.winner = controller.player1;
       controller.gameOver = true;
-      return;
     }
     if (checkHorizontal("o") || checkVertical("o") || checkDiagoanl("o")) {
       controller.winner = controller.player2;
       controller.gameOver = true;
-      return;
     }
 
     function checkHorizontal(symbol) {
       let flag = false;
-      for (let i = 0; i < 9; i += 3) {
-        if (arr[i] == symbol && arr[i] == arr[i + 1] && arr[i + 1] == arr[i + 2]) {
+      for (let i = 0; i < 6; i += 3) {
+        if (controller.cells[i] == symbol && controller.cells[i] == controller.cells[i + 1] && controller.cells[i + 1] == controller.cells[i + 2]) {
           flag = true;
         }
       }
@@ -95,7 +99,7 @@ let board = (function () {
     function checkVertical(symbol) {
       let flag = false;
       for (let i = 0; i < 3; i++) {
-        if (arr[i] == symbol && arr[i] == arr[i + 3] && arr[i + 3] == arr[i + 6]) {
+        if (controller.cells[i] == symbol && controller.cells[i] == controller.cells[i + 3] && controller.cells[i + 3] == controller.cells[i + 6]) {
           flag = true;
         }
       }
@@ -103,10 +107,10 @@ let board = (function () {
     }
     function checkDiagoanl(symbol) {
       let flag = false;
-      if (arr[0] == symbol && arr[0] == arr[4] && arr[4] == arr[8]) {
+      if (controller.cells[0] == symbol && controller.cells[0] == controller.cells[4] && controller.cells[4] == controller.cells[8]) {
         flag = true;
       }
-      if (arr[2] == symbol && arr[2] == arr[4] && arr[4] == arr[6]) {
+      if (controller.cells[2] == symbol && controller.cells[2] == controller.cells[4] && controller.cells[4] == controller.cells[6]) {
         flag = true;
       }
 
