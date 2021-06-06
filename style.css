@@ -43,7 +43,7 @@ body {
   border: 2px solid black;
 }
 .main-board {
-  width: fit-content;
+  width:max-content;
   margin: 3rem auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
