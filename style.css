@@ -1,21 +1,22 @@
-:root {
-  text-align: center;
-}
 * {
   padding: 0;
   margin: 0;
 }
 body {
-  background-color: #927e31;
+  background-image:linear-gradient(to bottom, rgb(56, 36, 13), rgb(15, 15, 15));
+  text-align: center;
+  margin:0 auto;
+  color:white;
 }
 .heading {
-  background-color: #314592;
+  background-image: linear-gradient(to bottom,rgb(83, 0, 0),black);
   padding: 1rem;
   font-size: 3rem;
   font-weight: 900;
+  text-shadow: 2px 2px 2px red;
 }
 .status-bar {
-  background-color: #a34d19;
+  background-image: linear-gradient(to bottom,rgb(99, 22, 22),black);;
 }
 .status-bar * {
   padding: 0.4rem;
@@ -23,7 +24,7 @@ body {
   border: 1px solid black;
 }
 .player-input {
-  background-color: #314592;
+  background-image: linear-gradient(to bottom,rgb(21, 31, 39),black);;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -33,17 +34,22 @@ body {
   display: block;
   padding: 0.5rem;
 }
-.player-input input{
-  padding:0.3rem;
+.player-input input {
+  padding: 0.3rem;
 }
-.save{
+.save {
   padding: 1rem;
-  margin:1rem;
+  margin: 1rem;
   font-size: 1rem;
   border: 2px solid black;
 }
+.main{
+  background-image: linear-gradient(to bottom,rgb(20, 65, 102),rgb(0, 34, 28));
+ 
+}
 .main-board {
-  width:max-content;
+  color:black;
+  width: max-content;
   margin: 3rem auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -58,7 +64,9 @@ body {
   border: 5px ridge brown;
   background-color: wheat;
 }
-.cell:hover, .save:hover, .reset:hover {
+.cell:hover,
+.save:hover,
+.reset:hover {
   transform: scale(1.05);
 }
 .reset {
