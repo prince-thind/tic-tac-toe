@@ -3,52 +3,30 @@
   margin: 0;
 }
 body {
-  background-image:linear-gradient(to bottom, rgb(56, 36, 13), rgb(15, 15, 15));
+  background-image: linear-gradient(
+    to bottom,
+    rgb(56, 36, 13),
+    rgb(15, 15, 15)
+  );
   text-align: center;
-  margin:0 auto;
-  color:white;
+  margin: 0 auto;
+  color: white;
 }
 .heading {
-  background-image: linear-gradient(to bottom,rgb(83, 0, 0),black);
-  padding: 1rem;
+  background-image: linear-gradient(to bottom, rgb(83, 0, 0), black);
   font-size: 3rem;
+  padding: 0.3em;
   font-weight: 900;
-  text-shadow: 2px 2px 2px red;
+  text-shadow: 2px 2px 2px green;
 }
 .status-bar {
-  background-image: linear-gradient(to bottom,rgb(99, 22, 22),black);;
+  background-image: linear-gradient(to bottom, rgb(22, 99, 63), black);
+  padding: 1em;
+  font-weight: 900;
 }
-.status-bar * {
-  padding: 0.4rem;
-  font-size: large;
-  border: 1px solid black;
-}
-.player-input {
-  background-image: linear-gradient(to bottom,rgb(21, 31, 39),black);;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.3rem;
-}
-.player-input > * {
-  display: block;
-  padding: 0.5rem;
-}
-.player-input input {
-  padding: 0.3rem;
-}
-.save {
-  padding: 1rem;
-  margin: 1rem;
-  font-size: 1rem;
-  border: 2px solid black;
-}
-.main{
-  background-image: linear-gradient(to bottom,rgb(20, 65, 102),rgb(0, 34, 28));
- 
-}
+
 .main-board {
-  color:black;
+  color: rgba(255, 255, 255, 0.733);
   width: max-content;
   margin: 3rem auto;
   display: grid;
@@ -62,16 +40,44 @@ body {
   height: 5rem;
   width: 5rem;
   border: 5px ridge brown;
-  background-color: wheat;
-}
-.cell:hover,
-.save:hover,
-.reset:hover {
-  transform: scale(1.05);
+  cursor: pointer;
+  background-image: radial-gradient(rgb(0, 129, 119), black);
 }
 .reset {
   padding: 1rem;
   margin-bottom: 3rem;
   font-size: 1rem;
   border: 2px solid black;
+  cursor: pointer;
+}
+.cell:hover,
+.reset:hover {
+  transform: scale(1.05);
+  transition: background-color 0.3s;
+  background-color: rgba(255, 0, 0, 0.37);
+}
+
+/* js classses*/
+.hidden {
+  display: none;
+}
+
+.menu {
+  position: absolute;
+  background-color: rgba(100, 148, 237, 0.616);
+  top: 10%;
+  left: 0;
+  right: 0;
+  padding: 3rem;
+  width: 70%;
+  margin: 0 auto;
+  border: 1px solid black;
+}
+.menu h2 {
+  padding-bottom: 4rem;
+}
+.menu button {
+  font-size: 1.5rem;
+  padding: 1rem;
+  margin: 0 2rem;
 }
