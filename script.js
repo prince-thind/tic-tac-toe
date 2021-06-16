@@ -1,120 +1,109 @@
-let UI = (function () {
-  let activePlayer = document.querySelector(".active-player");
-  let result = document.querySelector(".result");
-  let player1Input = document.querySelector("#player1");
-  let player2Input = document.querySelector("#player2");
-  let saveButton = document.querySelector(".save");
-  let resetButton = document.querySelector(".reset");
-  let mainBoard = document.querySelector(".main-board");
-  let mainCells = [...document.querySelectorAll(".cell")];
-
-  return { activePlayer, result, player1Input, player2Input, saveButton, resetButton, mainBoard, mainCells };
+/*UI namespace*/
+const UI = (function () {
+  const AISelectionYes = document.querySelector(".button-accept");
+  const AISelectionNo = document.querySelector(".button-cancel");
+  const statusBar = document.querySelector(".status-bar");
+  const resetButton = document.querySelector(".reset");
+  const mainBoard = document.querySelector(".main-board");
+  const mainCells = [...document.querySelectorAll(".cell")];
+  const mainBody = document.querySelector(".main");
+  const menu = document.querySelector(".menu");
+  return {
+    AISelectionNo,
+    AISelectionYes,
+    statusBar,
+    resetButton,
+    mainBoard,
+    mainCells,
+    menu,
+    mainBody,
+  };
 })();
 
-let controller = (function () {
-  let player1 = "Player1";
-  let player2 = "Player2";
-  let activePlayer = player1;
-  let gameOver = false;
+const board = (function () {
+  const cells = [];
   let winner = null;
-  let cells = [];
-  for (let cell of UI.mainCells) {
-    cells.push("-");
+  for (let i = 0; i < 9; i++) {
+    cells.push(null);
   }
+
   function display() {
-    for (let i = 0; i < UI.mainCells.length; i++) {
-      UI.mainCells[i].textContent = cells[i];
-      UI.activePlayer.textContent = `Player Active: ${controller.activePlayer}`;
-      if (controller.gameOver) {
-        UI.result.textContent = `${controller.winner} has won the game`;
-      } else {
-        UI.result.textContent = "Result: Waiting";
-      }
+    for (let i = 0; i < 9; i++) {
+      let displayCell = UI.mainCells[i];
+      displayCell.textContent = cells[i];
+    }
+    if (!!winner) {
+      UI.statusBar.textContent = `${winner} won!`;
     }
   }
-  return { player1, player2, activePlayer, gameOver, winner, cells, display };
+
+  function changeCell(index, value) {
+    cells[index] = value;
+  }
+  function getWinner(){
+    return winner;
+  }
+
+  
+  return { changeCell, display, getWinner };
 })();
 
-let board = (function () {
-  let id = 0;
-  for (let cell of UI.mainCells) {
-    cell.addEventListener("click", move);
-    cell.id = id++;
-  }
-  UI.resetButton.addEventListener("click", reset);
-  UI.saveButton.addEventListener("click", save);
+const controller = (function () {
+  const player1 = "Player X";
+  const player2 = "Player O";
+  let activePlayer = player1;
+  let AIFlag = null;
 
-  function move(e) {
-    if (e.target.textContent == "-" && !controller.gameOver) {
-      if (controller.activePlayer == controller.player1) {
-        controller.cells[e.target.id] = "*";
-        controller.activePlayer = controller.player2;
+  (function move() {
+    UI.mainCells.forEach((cell) => {
+      cell.addEventListener("click", (event) => {
+        if (!!AIFlag) {
+          AILogic(event);
+        } else {
+          player2Logic(event);
+        }
+      });
+    });
+  })();
+
+  function player2Logic(event) {
+    const div = event.target;
+    if (div.textContent == "" && !board.getWinner()) {
+      if (activePlayer == player1) {
+        board.changeCell(div.getAttribute("data-id"), "*");
+        activePlayer = player2;
       } else {
-        controller.cells[e.target.id] = "o";
-        controller.activePlayer = controller.player1;
+        board.changeCell(div.getAttribute("data-id"), "O");
+        activePlayer = player1;
       }
     }
-    checkWinner();
-    controller.display();
-  }
-  function reset() {
-    for (let i = 0; i < controller.cells.length; i++) {
-      controller.cells[i] = "-";
-    }
-    controller.activePlayer = controller.player1;
-    controller.gameOver = false;
-    controller.winner = null;
-    controller.display();
-  }
-  function save() {
-    controller.player1 = UI.player1Input.value || "Player1";
-    controller.player2 = UI.player2Input.value || "Player2";
-    if (controller.activePlayer == "Player1") {
-      controller.activePlayer = controller.player1;
-    } else {
-      controller.activePlayer = controller.player2;
-    }
-    controller.display();
+    board.display();
   }
 
-  function checkWinner() {
-    if (checkHorizontal("*") || checkVertical("*") || checkDiagoanl("*")) {
-      controller.winner = controller.player1;
-      controller.gameOver = true;
-    }
-    if (checkHorizontal("o") || checkVertical("o") || checkDiagoanl("o")) {
-      controller.winner = controller.player2;
-      controller.gameOver = true;
-    }
+  function AILogic(event){
 
-    function checkHorizontal(symbol) {
-      let flag = false;
-      for (let i = 0; i < 6; i += 3) {
-        if (controller.cells[i] == symbol && controller.cells[i] == controller.cells[i + 1] && controller.cells[i + 1] == controller.cells[i + 2]) {
-          flag = true;
-        }
-      }
-      return flag;
-    }
-    function checkVertical(symbol) {
-      let flag = false;
-      for (let i = 0; i < 3; i++) {
-        if (controller.cells[i] == symbol && controller.cells[i] == controller.cells[i + 3] && controller.cells[i + 3] == controller.cells[i + 6]) {
-          flag = true;
-        }
-      }
-      return flag;
-    }
-    function checkDiagoanl(symbol) {
-      let flag = false;
-      if (controller.cells[0] == symbol && controller.cells[0] == controller.cells[4] && controller.cells[4] == controller.cells[8]) {
-        flag = true;
-      }
-      if (controller.cells[2] == symbol && controller.cells[2] == controller.cells[4] && controller.cells[4] == controller.cells[6]) {
-        flag = true;
-      }
-
-      return flag;
-    }
   }
+
+  function setAI(value) {
+    AIFlag = value;
+  }
+
+  function setActivePlayer(player) {
+    activePlayer = player;
+  }
+
+  return { player1, player2, setAI, setActivePlayer };
+})();
+
+const menuModule = (function () {
+  UI.AISelectionYes.addEventListener("click", () => {
+    UI.mainBody.classList.toggle("hidden");
+    UI.menu.classList.toggle("hidden");
+    controller.setAI(true);
+  });
+  UI.AISelectionNo.addEventListener("click", () => {
+    UI.mainBody.classList.toggle("hidden");
+    UI.menu.classList.toggle("hidden");
+    controller.setAI(false);
+  });
 })();
