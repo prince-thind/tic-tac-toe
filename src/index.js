@@ -1,3 +1,5 @@
+import "./style.css";
+
 /*UI namespace*/
 const UI = (function () {
   const AISelectionYes = document.querySelector(".button-accept");
