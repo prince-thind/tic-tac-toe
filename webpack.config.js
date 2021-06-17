@@ -5,6 +5,7 @@ module.exports = {
   entry: {
     index: "./src/index.js",
   },
+  mode:"production",
   
   plugins: [
     new HtmlWebpackPlugin({
@@ -30,5 +31,8 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
-  devtool: "inline-source-map",
+  
 };
+
+//other disabled properties here
+//devtool: "inline-source-map",
