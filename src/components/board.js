@@ -3,30 +3,40 @@ import controller from "./controller";
 
 const board = (function () {
   const cells = [];
-  let winner = null;
-
   for (let i = 0; i < 9; i++) {
     cells.push(null);
   }
 
+  let winner = null;
+
   function display() {
     winner = checkWinner();
-    UI.statusBar.textContent=controller.player1.active?`Your Turn (${controller.player1.symbol})`:`${controller.player2.name}'s turn (${controller.player2.symbol})`;
+
+    let activePlayer = controller.getActivePlayer();
+    let statusString = "";
+    if (activePlayer == controller.getPlayerName("player1")) {
+      statusString = `Your Turn (${controller.getPlayerSymbol("player1")})`;
+    } else {
+      statusString = `${controller.getPlayerName("player2")}'s turn (${controller.getPlayerSymbol("player2")})`;
+    }
+
     for (let i = 0; i < 9; i++) {
       let displayCell = UI.mainCells[i];
       displayCell.textContent = cells[i];
     }
-    if(cellsFull()){
-      UI.statusBar.textContent = `It's a tie!`;
+
+    if (cellsFull()) {
+      statusString = `It's a tie!`;
     }
     if (!!winner) {
-      if(winner.name==controller.player1.name){
-        UI.statusBar.textContent = `You won!`;
-        return;
+      if (winner == controller.getPlayerName("player1")) {
+        statusString = `You won!`;
+      } else {
+        statusString = `${winner} won!`;
       }
-      UI.statusBar.textContent = `${winner.name} won!`;
-    } 
+    }
 
+    UI.statusBar.textContent = statusString;
   }
 
   function changeCell(index, value) {
@@ -37,30 +47,20 @@ const board = (function () {
   }
 
   function checkWinner() {
-    if (
-      checkHorizontal(controller.player1.symbol) ||
-      checkVertical(controller.player1.symbol) ||
-      checkDiagoanl(controller.player1.symbol)
-    ) {
-      return controller.player1;
+    const player1Symbol = controller.getPlayerSymbol("player1");
+    const player2Symbol = controller.getPlayerSymbol("player2");
+    if (checkHorizontal(player1Symbol) || checkVertical(player1Symbol) || checkDiagoanl(player1Symbol)) {
+      return controller.getPlayerName("player1");
     }
-    if (
-      checkHorizontal(controller.player2.symbol) ||
-      checkVertical(controller.player2.symbol) ||
-      checkDiagoanl(controller.player2.symbol)
-    ) {
-      return controller.player2;
+    if (checkHorizontal(player2Symbol) || checkVertical(player2Symbol) || checkDiagoanl(player2Symbol)) {
+      return controller.getPlayerName("player2");
     }
     return false;
 
     function checkHorizontal(symbol) {
       let flag = false;
       for (let i = 0; i < 6; i += 3) {
-        if (
-          cells[i] == symbol &&
-          cells[i] == cells[i + 1] &&
-          cells[i + 1] == cells[i + 2]
-        ) {
+        if (cells[i] == symbol && cells[i] == cells[i + 1] && cells[i + 1] == cells[i + 2]) {
           flag = true;
         }
       }
@@ -69,11 +69,7 @@ const board = (function () {
     function checkVertical(symbol) {
       let flag = false;
       for (let i = 0; i < 3; i++) {
-        if (
-          cells[i] == symbol &&
-          cells[i] == cells[i + 3] &&
-          cells[i + 3] == cells[i + 6]
-        ) {
+        if (cells[i] == symbol && cells[i] == cells[i + 3] && cells[i + 3] == cells[i + 6]) {
           flag = true;
         }
       }
@@ -90,19 +86,25 @@ const board = (function () {
     }
   }
 
-  function getCell(index){
+  function getCell(index) {
     return cells[index];
   }
 
-  function cellsFull(){
-    for(let cell of cells){
-      if(cell==null){
+  function cellsFull() {
+    for (let cell of cells) {
+      if (cell == null) {
         return false;
       }
     }
     return true;
   }
-  return { getCell, changeCell, display, getWinner,cellsFull };
+
+  function resetCells(){
+    for(let i=0;i<9;i++){
+      cells[i]=null;
+    }
+  }
+  return { getCell, changeCell, display, getWinner, cellsFull,resetCells };
 })();
 
 export default board;

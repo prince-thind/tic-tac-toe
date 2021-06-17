@@ -2,16 +2,21 @@ import UI from "./UI.js";
 import controller from "./controller.js";
 
 const menuModule = (function () {
-    UI.AISelectionYes.addEventListener("click", () => {
-      UI.mainBody.classList.toggle("hidden");
-      UI.menu.classList.toggle("hidden");
-      controller.setAI(true);
-    });
-    UI.AISelectionNo.addEventListener("click", () => {
-      UI.mainBody.classList.toggle("hidden");
-      UI.menu.classList.toggle("hidden");
-      controller.setAI(false);
-    });
-  })();
+  UI.AISelectionYes.addEventListener("click", AIFlagSet);
+  UI.AISelectionNo.addEventListener("click", AIFlagSet);
 
-  export default menuModule;
+  function AIFlagSet(event) {
+    let AIFlag = false;
+    if (event.target.textContent.toLowerCase() == "yes") {
+      AIFlag = true;
+    }
+
+    UI.mainBody.classList.toggle("hidden");
+    UI.menu.classList.toggle("hidden");
+
+    controller.setGameMode(AIFlag);
+  }
+  
+})();
+
+export default menuModule;

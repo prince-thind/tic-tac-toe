@@ -12,22 +12,23 @@ const controller = (function () {
     symbol: "O",
     active: "false",
   };
-  
 
   function setGameMode(AIFlag) {
+    UI.mainCells.forEach(setLogic);
     if (!!AIFlag) {
-      UI.mainCells.forEach((cell) => {
+      player2.name = "Computer";
+    }
+
+    function setLogic(cell) {
+      if (!!AIFlag) {
         cell.addEventListener("click", (event) => {
-          player2.name = "Computer";
           AILogic(event);
         });
-      });
-    } else {
-      UI.mainCells.forEach((cell) => {
+      } else {
         cell.addEventListener("click", (event) => {
           playerLogic(event);
         });
-      });
+      }
     }
   }
 
@@ -49,9 +50,14 @@ const controller = (function () {
 
   function AILogic(event) {
     const div = event.target;
+
     if (div.textContent == "" && !board.getWinner()) {
       board.changeCell(div.getAttribute("data-id"), player1.symbol);
-      makeAIMove();
+      board.display();
+
+      if (!board.getWinner()) {
+        makeAIMove();
+      }
     }
     board.display();
   }
@@ -67,11 +73,28 @@ const controller = (function () {
     }
   }
 
-  function setAI(AIFlag) {
-    setGameMode(AIFlag);
+  function getPlayerName(str){
+    if(str=="player1"){
+      return player1.name;
+    }
+    return player2.name;
   }
 
-  return { player1, player2, setAI, player1, player2 };
+  function getActivePlayer(str){
+    if(player1.active){
+      return player1.name;
+    }
+    return player2.name;
+  }
+
+  function getPlayerSymbol(str){
+    if(str=="player1"){
+      return player1.symbol;
+    }
+    return player2.symbol;
+  }
+
+  return { getActivePlayer, getPlayerName,getPlayerSymbol, setGameMode };
 })();
 
 export default controller;
