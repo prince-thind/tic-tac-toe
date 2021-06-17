@@ -5,7 +5,7 @@ module.exports = {
   entry: {
     index: "./src/index.js",
   },
-
+  
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/index.html",
@@ -28,7 +28,7 @@ module.exports = {
   output: {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
+    clean: true,
   },
   devtool: "inline-source-map",
-  clean: true,
 };
