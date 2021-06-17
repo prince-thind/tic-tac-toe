@@ -43,6 +43,10 @@ body {
   cursor: pointer;
   background-image: radial-gradient(rgb(0, 129, 119), black);
 }
+.cell:hover:empty{
+  background-image: radial-gradient(rgb(0, 200, 200),black);;
+}
+
 .reset {
   padding: 1rem;
   margin-bottom: 3rem;
@@ -64,11 +68,11 @@ body {
 
 .menu {
   position: absolute;
-  background-color: rgba(100, 148, 237, 0.616);
-  top: 10%;
+  background-color: rgba(96, 118, 214, 0.616);
+  top: 20%;
   left: 0;
   right: 0;
-  padding: 3rem;
+  padding: 2rem;
   width: 70%;
   margin: 0 auto;
   border: 1px solid black;
