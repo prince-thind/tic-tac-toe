@@ -59,7 +59,7 @@ const board = (function () {
 
     function checkHorizontal(symbol) {
       let flag = false;
-      for (let i = 0; i < 6; i += 3) {
+      for (let i = 0; i < 7; i += 3) {
         if (cells[i] == symbol && cells[i] == cells[i + 1] && cells[i + 1] == cells[i + 2]) {
           flag = true;
         }
