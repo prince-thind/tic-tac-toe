@@ -1,13 +1,13 @@
 import UI from "./UI.js";
 import controller from "./controller.js";
 
-const menuModule = (function () {
+(function () {
   UI.AISelectionYes.addEventListener("click", AIFlagSet);
   UI.AISelectionNo.addEventListener("click", AIFlagSet);
 
   function AIFlagSet(event) {
     let AIFlag = false;
-    if (event.target.textContent.toLowerCase() == "yes") {
+    if (event.target===UI.AISelectionYes) {
       AIFlag = true;
     }
 
@@ -19,4 +19,3 @@ const menuModule = (function () {
   
 })();
 
-export default menuModule;

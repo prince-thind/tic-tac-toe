@@ -1,13 +1,12 @@
 import UI from "./UI.js";
 import board from "./board.js";
+import render from "./render";
 
-const ResetModule = (function () {
+(function () {
     UI.resetButton.addEventListener("click", reset);
   
-    function reset(e) {
+    function reset() {
       board.resetCells();
-      board.display();
+      render();
     }
   })();
-
-  export default ResetModule;
