@@ -3,35 +3,34 @@
   margin: 0;
 }
 body {
-  background-image: linear-gradient(
-    to bottom,
-    rgb(56, 36, 13),
-    rgb(15, 15, 15)
-  );
+  background: linear-gradient(rgb(56, 36, 13), rgb(15, 15, 15));
+  background-size: cover;
   text-align: center;
-  margin: 0 auto;
   color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 .heading {
-  background-image: linear-gradient(to bottom, rgb(83, 0, 0), black);
-  font-size: 3rem;
-  padding: 0.3em;
-  font-weight: 900;
-  text-shadow: 2px 2px 2px green;
+  background: linear-gradient(rgb(83, 0, 0), black);
+  padding: 0.5rem;
+  text-shadow: 2px 2px 2px black;
 }
 .status-bar {
-  background-image: linear-gradient(to bottom, rgb(22, 99, 63), black);
-  padding: 1em;
+  background: linear-gradient(rgb(22, 99, 63), black);
+  padding: 0.5em;
   font-weight: 900;
 }
 
+.main{
+  flex:1;
+}
 .main-board {
-  color: rgba(255, 255, 255, 0.733);
+  color: rgba(255, 255, 255, 0.7);
   width: max-content;
-  margin: 3rem auto;
+  margin: 2rem auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
   border: 5px solid black;
 }
 .cell {
@@ -39,49 +38,60 @@ body {
   font-size: 5rem;
   height: 5rem;
   width: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: 5px ridge brown;
   cursor: pointer;
-  background-image: radial-gradient(rgb(0, 129, 119), black);
+  background: radial-gradient(rgb(0, 129, 119), black);
 }
-.cell:hover:empty{
-  background-image: radial-gradient(rgb(0, 200, 200),black);;
+.cell:hover:empty {
+  background: radial-gradient(rgb(0, 200, 200), black);
+  transform: scale(1.05);
+
 }
 
 .reset {
-  padding: 1rem;
-  margin-bottom: 3rem;
-  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
   border: 2px solid black;
   cursor: pointer;
 }
-.cell:hover,
-.reset:hover {
-  transform: scale(1.05);
-  transition: background-color 0.3s;
-  background-color: rgba(255, 0, 0, 0.37);
-}
 
+.reset:hover{
+  background-color: rgba(255, 0, 0, 0.37);
+  transform: scale(1.05);
+
+  color:white;
+}
+.copyright{
+  padding:0.5rem;
+  background-color: black;
+  color:white;
+  border:2px solid gray;
+}
 /* js classses*/
 .hidden {
-  display: none;
+  visibility: hidden;
 }
 
 .menu {
-  position: absolute;
-  background-color: rgba(96, 118, 214, 0.616);
+  position: fixed;
+  background-color: rgb(37, 82, 55);
   top: 20%;
   left: 0;
   right: 0;
-  padding: 2rem;
-  width: 70%;
+  padding: 2rem 5rem;
+  width: max-content;
   margin: 0 auto;
   border: 1px solid black;
 }
 .menu h2 {
-  padding-bottom: 4rem;
+  padding-bottom: 1rem;
 }
 .menu button {
   font-size: 1.5rem;
-  padding: 1rem;
-  margin: 0 2rem;
+  padding: 0.5rem 2rem;
+  margin: 0 1rem;
 }
