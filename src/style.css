@@ -22,8 +22,8 @@ body {
   font-weight: 900;
 }
 
-.main{
-  flex:1;
+.main {
+  flex: 1;
 }
 .main-board {
   color: rgba(255, 255, 255, 0.7);
@@ -48,7 +48,6 @@ body {
 .cell:hover:empty {
   background: radial-gradient(rgb(0, 200, 200), black);
   transform: scale(1.05);
-
 }
 
 .reset {
@@ -59,17 +58,17 @@ body {
   cursor: pointer;
 }
 
-.reset:hover{
+.reset:hover {
   background-color: rgba(255, 0, 0, 0.37);
   transform: scale(1.05);
 
-  color:white;
+  color: white;
 }
-.copyright{
-  padding:0.5rem;
+.copyright {
+  padding: 0.5rem;
   background-color: black;
-  color:white;
-  border:2px solid gray;
+  color: white;
+  border: 2px solid gray;
 }
 /* js classses*/
 .hidden {
@@ -94,4 +93,18 @@ body {
   font-size: 1.5rem;
   padding: 0.5rem 2rem;
   margin: 0 1rem;
+}
+
+@media only screen and (max-width: 760px) {
+  .menu {
+    box-sizing: border-box;
+    padding: 1rem;
+    width: 90%;
+  }
+  .cell {
+    padding: 0.5rem;
+    font-size: 3rem;
+    height: 4rem;
+    width: 4rem;
+  }
 }
