@@ -6,8 +6,8 @@ function AIMove(cells) {
   const huPlayer = 'X';
   const aiPlayer = 'O';
   const symbols = {
-    huPlayer: huPlayer,
-    aiPlayer: aiPlayer,
+    huPlayer,
+    aiPlayer,
   };
 
   const difficulty = 'Hard';

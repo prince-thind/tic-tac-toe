@@ -1,6 +1,6 @@
-const board = (function () {
+const board = (() => {
   const cells = [];
-  for (let i = 0; i < 9; i++) {
+  for (let i = 0; i < 9; i += 1) {
     cells.push(null);
   }
 
@@ -13,16 +13,11 @@ const board = (function () {
   }
 
   function cellsFull() {
-    for (let cell of cells) {
-      if (cell === null) {
-        return false;
-      }
-    }
-    return true;
+   return !cells.some((cell) => cell === null);
   }
 
   function resetCells() {
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 9; i += 1) {
       cells[i] = null;
     }
   }

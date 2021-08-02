@@ -1,11 +1,10 @@
-import UI from './UI.js';
-import board from './board.js';
+import UI from './UI';
+import board from './board';
 import render from './render';
 import findWinner from './findWinner';
-import AIMove from './AI.js';
+import AIMove from './AI';
 
-
-const controller = (function () {
+const controller = (() => {
   const player1 = {
     name: 'Player X',
     symbol: 'X',
@@ -15,6 +14,11 @@ const controller = (function () {
     name: 'Player 2',
     symbol: 'O',
     active: 'false',
+  };
+  const playerInfo = {
+    getActivePlayer,
+    getPlayerName,
+    getPlayerSymbol,
   };
 
   function setGameMode(AIFlag) {
@@ -38,7 +42,7 @@ const controller = (function () {
 
   function playerLogic(event) {
     const div = event.target;
-    if (div.textContent == '' && !findWinner()) {
+    if (div.textContent === '' && !findWinner(playerInfo)) {
       if (player1.active) {
         board.changeCell(div.getAttribute('data-id'), player1.symbol);
         player2.active = true;
@@ -49,37 +53,30 @@ const controller = (function () {
         player1.active = true;
       }
     }
-    render();
+    render(playerInfo);
   }
 
   function AILogic(event) {
     const div = event.target;
 
-    if (div.textContent == '' && !findWinner()) {
+    if (div.textContent === '' && !findWinner(playerInfo)) {
       board.changeCell(div.getAttribute('data-id'), player1.symbol);
-      render();
+      render(playerInfo);
 
-      if (!findWinner()) {
+      if (!findWinner(playerInfo)) {
         makeAIMove();
       }
     }
-    render();
+    render(playerInfo);
   }
 
   function makeAIMove() {
-    // eslint-disable-next-line no-constant-condition
-    while (true) {
-      if (board.cellsFull()) break;
-      let index = AIMove(board.getCells());
-      if (board.getCells()[index] == null) {
-        board.changeCell(index, player2.symbol);
-        break;
-      }
-    }
+    const index = AIMove(board.getCells());
+    board.changeCell(index, player2.symbol);
   }
 
   function getPlayerName(str) {
-    if (str == 'player1') {
+    if (str === 'player1') {
       return player1.name;
     }
     return player2.name;
@@ -93,13 +90,13 @@ const controller = (function () {
   }
 
   function getPlayerSymbol(str) {
-    if (str == 'player1') {
+    if (str === 'player1') {
       return player1.symbol;
     }
     return player2.symbol;
   }
 
-  return { getActivePlayer, getPlayerName, getPlayerSymbol, setGameMode };
+  return { playerInfo, setGameMode };
 })();
 
 export default controller;
