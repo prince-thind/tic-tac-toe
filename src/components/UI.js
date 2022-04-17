@@ -1,3 +1,4 @@
+import getWinner from "./getWinner";
 import main from "./main";
 import { setAI, turn, cells, getActivePlayerSymbol } from "./state";
 
@@ -17,7 +18,8 @@ resetButton.addEventListener("click", handleResetButtonClick);
 mainBoard.addEventListener("click", main);
 
 function display() {
-  console.log(cells);
+ 
+
   mainBoard.innerHTML = "";
   updateStatusBar();
   let i = 0;
@@ -28,6 +30,15 @@ function display() {
     cellDiv.textContent = cell;
     mainBoard.append(cellDiv);
   }
+
+  const winner = getWinner();
+  if (winner) {
+    displayWinner(winner);
+    return;
+  }
+}
+function displayWinner(winner) {
+  statusBar.textContent = winner + " has won!";
 }
 
 function updateStatusBar() {

@@ -41,6 +41,8 @@ export {
   cells,
   AI,
   turn,
+  player1Symbol,
+  player2Symbol,
   toggleTurn,
   setAI,
   getPossibleMoves,

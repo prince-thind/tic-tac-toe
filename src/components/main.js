@@ -1,4 +1,5 @@
 import getAIMove from "./AIMove";
+import getWinner from "./getWinner";
 import {
   AI,
   cells,
@@ -9,6 +10,10 @@ import {
 import { display } from "./UI";
 
 export default function main(e) {
+  const winner = getWinner();
+  if (winner) {
+    return;
+  }
   makeFirstMove(e);
 }
 
