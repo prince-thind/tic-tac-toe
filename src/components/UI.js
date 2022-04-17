@@ -1,26 +1,36 @@
-import { setAI } from "./state";
+import main from "./main";
+import { setAI, turn, cells } from "./state";
 
 const AISelectionYes = document.querySelector("#button-accept");
 const AISelectionNo = document.querySelector("#button-cancel");
-AISelectionYes.addEventListener("click", handleAIButtonClick);
-AISelectionNo.addEventListener("click", handleAIButtonClick);
+const menu = document.querySelector("#menu");
 
+const mainBody = document.querySelector("#main");
 const statusBar = document.querySelector("#status-bar");
+const mainBoard = document.querySelector("#main-board");
 
 const resetButton = document.querySelector("#reset");
 
-const mainBoard = document.querySelector("#main-board");
-const mainCells = [...document.querySelectorAll(".cell")];
-
-const mainBody = document.querySelector("#main");
-
-const menu = document.querySelector("#menu");
+AISelectionYes.addEventListener("click", handleAIButtonClick);
+AISelectionNo.addEventListener("click", handleAIButtonClick);
+resetButton.addEventListener("click", handleResetButtonClick);
+mainBoard.addEventListener("click", main);
 
 function display() {
+  mainBoard.innerHTML = "";
   updateStatusBar();
+  let i = 0;
+  for (const cell of cells) {
+    const cellDiv = document.createElement("div");
+    cellDiv.className = "cell";
+    cellDiv.setAttribute("data-index", i++);
+    mainBoard.append(cellDiv);
+  }
 }
 
-function updateStatusBar() {}
+function updateStatusBar() {
+  statusBar.textContent = `${turn}'s Turn`;
+}
 
 function handleAIButtonClick(e) {
   const input = Boolean(e.target.getAttribute("data-AI"));
@@ -31,6 +41,10 @@ function handleAIButtonClick(e) {
 function toggleMenu() {
   menu.classList.toggle("hidden");
   mainBody.classList.toggle("hidden");
+}
+
+function handleResetButtonClick() {
+  toggleMenu();
 }
 
 export { display };
