@@ -1,5 +1,10 @@
 import main from "./main";
-import { setAI, turn, cells } from "./state";
+import {
+  setAI,
+  turn,
+  cells,
+  getActivePlayerSymbol,
+} from "./state";
 
 const AISelectionYes = document.querySelector("#button-accept");
 const AISelectionNo = document.querySelector("#button-cancel");
@@ -24,16 +29,17 @@ function display() {
     const cellDiv = document.createElement("div");
     cellDiv.className = "cell";
     cellDiv.setAttribute("data-index", i++);
+    cellDiv.textContent = cell;
     mainBoard.append(cellDiv);
   }
 }
 
 function updateStatusBar() {
-  statusBar.textContent = `${turn}'s Turn`;
+  statusBar.textContent = `${turn}'s (${getActivePlayerSymbol()}) Turn`;
 }
 
 function handleAIButtonClick(e) {
-  const input = Boolean(e.target.getAttribute("data-AI"));
+  const input = (e.target.getAttribute("data-AI")=="true");
   setAI(input);
   toggleMenu();
 }
