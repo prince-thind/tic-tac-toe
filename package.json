@@ -7,7 +7,7 @@
     "start": "npm run serve",
     "build": "webpack --mode=production --node-env=production",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
+    "deploy": "npm run build && gh-pages -d dist",
     "build:dev": "webpack --mode=development",
     "serve": "webpack serve"
   },
