@@ -1,10 +1,5 @@
 import main from "./main";
-import {
-  setAI,
-  turn,
-  cells,
-  getActivePlayerSymbol,
-} from "./state";
+import { setAI, turn, cells, getActivePlayerSymbol } from "./state";
 
 const AISelectionYes = document.querySelector("#button-accept");
 const AISelectionNo = document.querySelector("#button-cancel");
@@ -22,6 +17,7 @@ resetButton.addEventListener("click", handleResetButtonClick);
 mainBoard.addEventListener("click", main);
 
 function display() {
+  console.log(cells);
   mainBoard.innerHTML = "";
   updateStatusBar();
   let i = 0;
@@ -39,7 +35,7 @@ function updateStatusBar() {
 }
 
 function handleAIButtonClick(e) {
-  const input = (e.target.getAttribute("data-AI")=="true");
+  const input = e.target.getAttribute("data-AI") == "true";
   setAI(input);
   toggleMenu();
 }
@@ -51,6 +47,10 @@ function toggleMenu() {
 
 function handleResetButtonClick() {
   toggleMenu();
+  for (let i = 0; i < cells.length; i++) {
+    cells[i] = null;
+  }
+  display();
 }
 
 export { display };

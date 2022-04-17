@@ -1,4 +1,4 @@
-let cells = Array(9).fill(null);
+const cells = Array(9).fill(null);
 let player1Symbol = "X";
 let player2Symbol = "O";
 let AI = false;
