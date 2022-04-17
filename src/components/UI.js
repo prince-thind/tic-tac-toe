@@ -1,6 +1,6 @@
 import getWinner from "./getWinner";
 import main from "./main";
-import { setAI, turn, cells, getActivePlayerSymbol } from "./state";
+import { setAI, turn, cells, getActivePlayerSymbol, checkFull } from "./state";
 
 const AISelectionYes = document.querySelector("#button-accept");
 const AISelectionNo = document.querySelector("#button-cancel");
@@ -18,8 +18,6 @@ resetButton.addEventListener("click", handleResetButtonClick);
 mainBoard.addEventListener("click", main);
 
 function display() {
- 
-
   mainBoard.innerHTML = "";
   updateStatusBar();
   let i = 0;
@@ -31,11 +29,19 @@ function display() {
     mainBoard.append(cellDiv);
   }
 
+  const isFull = checkFull();
+  if (isFull) {
+    displayTie();
+  }
+
   const winner = getWinner();
   if (winner) {
     displayWinner(winner);
     return;
   }
+}
+function displayTie() {
+  statusBar.textContent = "It's a tie!";
 }
 function displayWinner(winner) {
   statusBar.textContent = winner + " has won!";

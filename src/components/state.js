@@ -19,7 +19,7 @@ function toggleTurn() {
 
 function getActivePlayerSymbol() {
   if (turn == "player1") {
-    return  player1Symbol;
+    return player1Symbol;
   }
   return player2Symbol;
 }
@@ -37,12 +37,17 @@ function getPossibleMoves() {
   return possibleMoves;
 }
 
+function checkFull() {
+  return !cells.some((c) => c === null);
+}
+
 export {
   cells,
   AI,
   turn,
   player1Symbol,
   player2Symbol,
+  checkFull,
   toggleTurn,
   setAI,
   getPossibleMoves,

@@ -5,6 +5,7 @@ import {
   cells,
   toggleTurn,
   getPossibleMoves,
+  checkFull,
   getActivePlayerSymbol,
 } from "./state";
 import { display } from "./UI";
@@ -14,6 +15,11 @@ export default function main(e) {
   if (winner) {
     return;
   }
+
+  if (checkFull()) {
+    return;
+  }
+
   makeFirstMove(e);
 }
 
