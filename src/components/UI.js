@@ -1,6 +1,13 @@
 import getWinner from "./getWinner";
 import main from "./main";
-import { setAI, turn, cells, getActivePlayerSymbol, checkFull } from "./state";
+import {
+  setAI,
+  turn,
+  cells,
+  getActivePlayerSymbol,
+  checkFull,
+  changeTurn,
+} from "./state";
 
 const AISelectionYes = document.querySelector("#button-accept");
 const AISelectionNo = document.querySelector("#button-cancel");
@@ -11,10 +18,12 @@ const statusBar = document.querySelector("#status-bar");
 const mainBoard = document.querySelector("#main-board");
 
 const resetButton = document.querySelector("#reset");
+const clearButton = document.querySelector("#clear");
 
 AISelectionYes.addEventListener("click", handleAIButtonClick);
 AISelectionNo.addEventListener("click", handleAIButtonClick);
 resetButton.addEventListener("click", handleResetButtonClick);
+clearButton.addEventListener("click", handleClearButtonClick);
 mainBoard.addEventListener("click", main);
 
 function display() {
@@ -64,10 +73,19 @@ function toggleMenu() {
 
 function handleResetButtonClick() {
   toggleMenu();
+  reset();
+}
+
+function reset() {
+  changeTurn("player1");
   for (let i = 0; i < cells.length; i++) {
     cells[i] = null;
   }
   display();
+}
+
+function handleClearButtonClick() {
+  reset();
 }
 
 export { display };

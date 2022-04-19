@@ -41,6 +41,10 @@ function checkFull() {
   return !cells.some((c) => c === null);
 }
 
+function changeTurn(input) {
+  turn = input;
+}
+
 export {
   cells,
   AI,
@@ -52,4 +56,5 @@ export {
   setAI,
   getPossibleMoves,
   getActivePlayerSymbol,
+  changeTurn,
 };
