@@ -7,3 +7,21 @@
 body {
   font-family: 'Roboto';
 }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.cell{
+  aspect-ratio: 1;
+  margin:1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cell:hover{
+  transform: scale(1.1);
+  cursor: pointer;
+}
