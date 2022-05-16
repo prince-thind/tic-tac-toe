@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 
-export default function Turn({ turn }) {
+export default function Turn({ turn, winner }) {
   return (
     <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
       <Paper
@@ -14,7 +14,7 @@ export default function Turn({ turn }) {
           color: "white",
         }}
       >
-        {turn}'s Turn
+        {winner.name ? `${winner.name} Won` : `${turn}'s Turn`}
       </Paper>
     </Box>
   );

@@ -20,7 +20,7 @@ function App() {
     <div className="App">
       <Header />
       <Container>
-        <Turn turn={turn} />
+        <Turn turn={turn} winner={winner} />
         <Board
           board={board}
           setBoard={setBoard}
