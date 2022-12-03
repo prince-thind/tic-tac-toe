@@ -22,12 +22,13 @@ export default function Board({ board, setBoard, turn, setTurn, winner }) {
         <Paper
           className="grid"
           elevation={15}
-          sx={{ backgroundColor: "primary.main", mt: 3 }}
+          sx={{ backgroundColor: "primary.main" }}
         >
           {board.map((cell, index) => {
             return (
               <Cell
                 index={index}
+                key={index}
                 content={cell}
                 highlighted={winner.pair.includes(index)}
                 playMove={playMove}
