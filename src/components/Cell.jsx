@@ -5,9 +5,7 @@ export default function Cell({ highlighted, index, playMove, content }) {
   return (
     <Paper
       sx={{
-        backgroundColor: highlighted
-          ? "secondary.main"
-          : "info.dark",
+        backgroundColor: highlighted ? "secondary.main" : "info.dark",
         color: "white",
       }}
       className="cell"

@@ -2,7 +2,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Grow from "@mui/material/Grow";
-import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
 
 import { useState } from "react";
 import Header from "./components/Header";
@@ -48,7 +48,7 @@ function App() {
             color="error"
             size="large"
           >
-            <RestartAltIcon/>
+            <RestartAltIcon />
             Reset
           </Button>
         </Box>

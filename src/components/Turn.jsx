@@ -3,7 +3,7 @@ import Paper from "@mui/material/Paper";
 
 export default function Turn({ turn, winner }) {
   return (
-    <Box sx={{ position: "relative", margin: "auto" }}>
+    <Box sx={{ margin: "auto" }}>
       <Paper
         elevation={3}
         sx={{
