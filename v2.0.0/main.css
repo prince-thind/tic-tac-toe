@@ -1,0 +1,138 @@
+* {
+  padding: 0;
+  margin: 0;
+  /* box-sizing: border-box; */
+}
+
+body {
+  background: radial-gradient(hsl(30, 65%, 7%), hsl(0, 0%, 5%));
+  text-align: center;
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.heading {
+  background: linear-gradient(hsl(0, 64%, 24%), black);
+  padding: 0.5rem;
+  text-shadow: 2px 2px 2px black;
+  border-bottom: 1px solid hsl(0, 0%, 15%);
+}
+
+.status-bar {
+  background: linear-gradient(hsl(210, 64%, 24%), black);
+  padding: 1rem;
+  font-weight: 900;
+  box-shadow: 2px 2px 2px 0px black;
+  width: max-content;
+  border-radius: 1rem;
+  margin: 1rem 1rem 0 auto;
+  border-bottom: 1px solid hsl(0, 0%, 15%);
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.screen-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.main-board {
+  color: rgba(255, 255, 255, 0.7);
+  width: max-content;
+  margin: 2rem auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border: 5px solid black;
+}
+
+.cell {
+  padding: 1rem;
+  font-size: 5rem;
+  height: 5rem;
+  width: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px ridge brown;
+  cursor: pointer;
+  background: radial-gradient(rgb(0, 129, 119), black);
+}
+
+.cell:hover:empty {
+  background: radial-gradient(rgb(0, 200, 200), black);
+  transform: scale(1.05);
+}
+
+.reset {
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  border: 2px solid black;
+  cursor: pointer;
+}
+
+.reset:hover {
+  background-color: rgba(255, 0, 0, 0.37);
+  transform: scale(1.05);
+
+  color: white;
+}
+
+.copyright {
+  padding: 0.5rem;
+  background-color: black;
+  color: white;
+  border: 2px solid gray;
+}
+
+/* js classses*/
+.hidden {
+  visibility: hidden;
+}
+
+.menu {
+  position: fixed;
+  background-color: rgb(37, 82, 55);
+  top: 20%;
+  left: 0;
+  right: 0;
+  padding: 2rem 5rem;
+  width: max-content;
+  margin: 0 auto;
+  border: 1px solid black;
+}
+
+.menu h2 {
+  padding-bottom: 1rem;
+}
+
+.menu button {
+  font-size: 1.5rem;
+  padding: 0.5rem 2rem;
+  margin: 0 1rem;
+}
+
+@media only screen and (max-width: 760px) {
+  .menu {
+    box-sizing: border-box;
+    padding: 1rem;
+    width: 90%;
+  }
+
+  .cell {
+    padding: 0.5rem;
+    font-size: 3rem;
+    height: 4rem;
+    width: 4rem;
+  }
+}
